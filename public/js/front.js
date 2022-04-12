@@ -2003,6 +2003,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Header'
 });
@@ -2122,11 +2125,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'BlogMain',
   data: function data() {
     return {
       posts: [],
+      categories: [],
       currentPage: 1,
       lastPage: null
     };
@@ -2144,6 +2152,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.currentPage = response.data.results.current_page;
         _this.posts = response.data.results.data;
         _this.lastPage = response.data.results.last_page;
+        _this.categories = response.data.categoryList;
       });
     }
   },
@@ -2222,7 +2231,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n /* Classe specifica dell'active del componente router link */\n.router-link-exact-active {\n  text-transform: uppercase;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n /* Classe specifica dell'active del componente router link */\n.router-link-exact-active {\n  text-transform: uppercase;\n}\n", ""]);
 
 // exports
 
@@ -3561,24 +3570,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("form", { staticClass: "form-inline my-2 my-lg-0" }, [
-      _c("input", {
-        staticClass: "form-control mr-sm-2",
-        attrs: {
-          type: "search",
-          placeholder: "Search",
-          "aria-label": "Search",
-        },
-      }),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-outline-success my-2 my-sm-0",
-          attrs: { type: "submit" },
-        },
-        [_vm._v("Search")]
-      ),
+    return _c("ul", { staticClass: "navbar-nav ms-auto" }, [
+      _c("li", { staticClass: "nav-item" }, [
+        _c("a", { staticClass: "nav-link", attrs: { href: "/admin" } }, [
+          _vm._v("Pannello amministrazione"),
+        ]),
+      ]),
     ])
   },
 ]
@@ -3711,25 +3708,45 @@ var render = function () {
         _vm._l(_vm.posts, function (post) {
           return _c("div", { key: post.id, staticClass: "col-4" }, [
             _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "card-body text-center" }, [
-                _c("h5", { staticClass: "card-title" }, [
-                  _vm._v(_vm._s(post.title)),
-                ]),
-                _vm._v(" "),
-                _c("img", { attrs: { src: post.img } }),
-                _vm._v(" "),
-                _c("span", [_vm._v(_vm._s(post.category_id))]),
-                _vm._v(" "),
-                _c("p", { staticClass: "card-text" }, [
-                  _vm._v(_vm._s(post.content.substr(0, 130)) + "..."),
-                ]),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "btn btn-primary", attrs: { href: "#" } },
-                  [_vm._v("Vai all'articolo completo")]
-                ),
-              ]),
+              _c(
+                "div",
+                { staticClass: "card-body text-center" },
+                [
+                  _c("h5", { staticClass: "card-title" }, [
+                    _vm._v(_vm._s(post.title)),
+                  ]),
+                  _vm._v(" "),
+                  _c("img", { attrs: { src: post.img } }),
+                  _vm._v(" "),
+                  _vm._l(_vm.categories, function (category) {
+                    return _c(
+                      "div",
+                      { key: category.id, staticClass: "my-3" },
+                      [
+                        category.id == post.category_id
+                          ? _c("span", [
+                              _vm._v(
+                                "\n                                  Genere: "
+                              ),
+                              _c("strong", [_vm._v(_vm._s(category.name))]),
+                            ])
+                          : _vm._e(),
+                      ]
+                    )
+                  }),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "card-text" }, [
+                    _vm._v(_vm._s(post.content.substr(0, 130)) + "..."),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    { staticClass: "btn btn-primary", attrs: { href: "#" } },
+                    [_vm._v("Vai all'articolo completo")]
+                  ),
+                ],
+                2
+              ),
             ]),
           ])
         }),

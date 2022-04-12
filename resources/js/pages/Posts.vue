@@ -11,7 +11,11 @@
                         <div class="card-body text-center">
                             <h5 class="card-title">{{post.title}}</h5>
                             <img :src="post.img">
-                            <span>{{post.category_id}}</span>
+                            <div class="my-3" v-for="category in categories" :key="category.id">
+                                <span v-if="category.id == post.category_id">
+                                    Genere: <strong>{{category.name}}</strong>
+                                </span>
+                            </div>
                             <p class="card-text">{{post.content.substr(0, 130)}}...</p>
                             <a href="#" class="btn btn-primary">Vai all'articolo completo</a>
                         </div>
@@ -44,6 +48,7 @@ export default {
     data() {
         return {
             posts: [],
+            categories: [],
             currentPage: 1,
             lastPage: null
         }
@@ -60,6 +65,7 @@ export default {
                 this.currentPage = response.data.results.current_page;
                 this.posts = response.data.results.data;
                 this.lastPage = response.data.results.last_page;
+                this.categories = response.data.categoryList;
             });
         }
     },

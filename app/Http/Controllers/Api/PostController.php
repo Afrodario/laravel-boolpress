@@ -30,7 +30,7 @@ class PostController extends Controller
         return response()->json(
             [
                 'results' => $posts,
-                'test' => $categories,
+                'categoryList' => $categories,
                 'success' => true
             ]
         );
