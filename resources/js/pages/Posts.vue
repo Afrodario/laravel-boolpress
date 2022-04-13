@@ -17,6 +17,7 @@
                         :category="post.category"
                         :tags="post.tags"
                         :category_id="post.category_id"
+                        :categories="categories"
                     />
                 </div>
 
@@ -52,7 +53,8 @@ export default {
         return {
             posts: [],
             currentPage: 1,
-            lastPage: null
+            lastPage: null,
+            categories: []
         }
     },
 
@@ -67,6 +69,7 @@ export default {
                 this.currentPage = response.data.results.current_page;
                 this.posts = response.data.results.data;
                 this.lastPage = response.data.results.last_page;
+                this.categories = response.data.categoryList;
             });
         }
     },

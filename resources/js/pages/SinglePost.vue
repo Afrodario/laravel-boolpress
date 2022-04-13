@@ -21,7 +21,13 @@
               </ul>
             </div>
           </div>
+
+            <router-link class="btn btn-primary" :to="{name: 'blog'}">
+                Torna indietro
+            </router-link>
+
         </div>
+
       </div>
 
   </div>

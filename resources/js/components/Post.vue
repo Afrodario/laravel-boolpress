@@ -22,29 +22,12 @@
 <script>
 export default {
     name: 'Post',
-    props: ['title', 'content', 'slug', 'category', 'tags', 'img', 'category_id'],
+    props: ['title', 'content', 'slug', 'category', 'tags', 'img', 'category_id', 'categories'],
     data() {
         return {
-            categories: []
+
         }
     },
-
-    methods: {
-        getCategories(apiPage) {
-            axios.get('/api/posts', {
-                'params': {
-                    'page': apiPage
-                }
-            }).then((response) => {
-                this.categories = response.data.categoryList;
-                console.log(this.categories);
-            });
-        }
-    },
-
-    mounted() {
-        this.getCategories(1);
-    }
 }
 </script>
 

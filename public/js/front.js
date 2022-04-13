@@ -2032,28 +2032,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Post',
-  props: ['title', 'content', 'slug', 'category', 'tags', 'img', 'category_id'],
+  props: ['title', 'content', 'slug', 'category', 'tags', 'img', 'category_id', 'categories'],
   data: function data() {
-    return {
-      categories: []
-    };
-  },
-  methods: {
-    getCategories: function getCategories(apiPage) {
-      var _this = this;
-
-      axios.get('/api/posts', {
-        'params': {
-          'page': apiPage
-        }
-      }).then(function (response) {
-        _this.categories = response.data.categoryList;
-        console.log(_this.categories);
-      });
-    }
-  },
-  mounted: function mounted() {
-    this.getCategories(1);
+    return {};
   }
 });
 
@@ -2194,6 +2175,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'BlogMain',
@@ -2204,7 +2186,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       posts: [],
       currentPage: 1,
-      lastPage: null
+      lastPage: null,
+      categories: []
     };
   },
   methods: {
@@ -2221,6 +2204,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.currentPage = response.data.results.current_page;
         _this.posts = response.data.results.data;
         _this.lastPage = response.data.results.last_page;
+        _this.categories = response.data.categoryList;
       });
     }
   },
@@ -2241,6 +2225,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3817,6 +3807,7 @@ var render = function () {
                   category: post.category,
                   tags: post.tags,
                   category_id: post.category_id,
+                  categories: _vm.categories,
                 },
               }),
             ],
@@ -3911,43 +3902,54 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col" }, [
-        _c("div", { staticClass: "card" }, [
-          _vm.post
-            ? _c("div", { staticClass: "card-body" }, [
-                _c("h1", { staticClass: "card-title" }, [
-                  _vm._v(_vm._s(_vm.post.title)),
-                ]),
-                _vm._v(" "),
-                _c("img", { attrs: { src: _vm.post.img } }),
-                _vm._v(" "),
-                _vm.post.category
-                  ? _c("h3", [
-                      _vm._v("Categoria: " + _vm._s(_vm.post.category.name)),
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(_vm.post.content))]),
-                _vm._v(" "),
-                _c("span", [_vm._v("Tags:")]),
-                _vm._v(" "),
-                _c(
-                  "ul",
-                  _vm._l(_vm.post.tags, function (tag) {
-                    return _c("li", { key: tag.id }, [
-                      _vm._v(
-                        "\n                " +
-                          _vm._s(tag.name) +
-                          "\n              "
-                      ),
-                    ])
-                  }),
-                  0
-                ),
-              ])
-            : _vm._e(),
-        ]),
-      ]),
+      _c(
+        "div",
+        { staticClass: "col" },
+        [
+          _c("div", { staticClass: "card" }, [
+            _vm.post
+              ? _c("div", { staticClass: "card-body" }, [
+                  _c("h1", { staticClass: "card-title" }, [
+                    _vm._v(_vm._s(_vm.post.title)),
+                  ]),
+                  _vm._v(" "),
+                  _c("img", { attrs: { src: _vm.post.img } }),
+                  _vm._v(" "),
+                  _vm.post.category
+                    ? _c("h3", [
+                        _vm._v("Categoria: " + _vm._s(_vm.post.category.name)),
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("p", [_vm._v(_vm._s(_vm.post.content))]),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Tags:")]),
+                  _vm._v(" "),
+                  _c(
+                    "ul",
+                    _vm._l(_vm.post.tags, function (tag) {
+                      return _c("li", { key: tag.id }, [
+                        _vm._v(
+                          "\n                " +
+                            _vm._s(tag.name) +
+                            "\n              "
+                        ),
+                      ])
+                    }),
+                    0
+                  ),
+                ])
+              : _vm._e(),
+          ]),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            { staticClass: "btn btn-primary", attrs: { to: { name: "blog" } } },
+            [_vm._v("\n              Torna indietro\n          ")]
+          ),
+        ],
+        1
+      ),
     ]),
   ])
 }
