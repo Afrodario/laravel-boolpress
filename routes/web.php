@@ -39,7 +39,7 @@ Route::middleware('auth')
 
 
 //Rotta da definire alla fine del file che può puntare a qualunque pagina che non rientri nelle rotte prima definite
-//(any) con questa sintassi specifica
+//(any) con questa sintassi specifica => qualsiasi richiesta non definita viene catturata qui e riporta alla vista di front end HOME
 Route::get("{any?}", function() {
     return view('guests.home');
 })->where('any', '.*');

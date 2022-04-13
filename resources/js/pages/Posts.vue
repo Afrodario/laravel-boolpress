@@ -4,22 +4,20 @@
         <div class="container">
 
             <h1 class="text-center">Elenco dei post</h1>
+
             <div class="row">
                 
-                <div class="col-4" v-for="post in posts" :key="post.id">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">{{post.title}}</h5>
-                            <img :src="post.img">
-                            <div class="my-3" v-for="category in categories" :key="category.id">
-                                <span v-if="category.id == post.category_id">
-                                    Genere: <strong>{{category.name}}</strong>
-                                </span>
-                            </div>
-                            <p class="card-text">{{post.content.substr(0, 130)}}...</p>
-                            <a href="#" class="btn btn-primary">Vai all'articolo completo</a>
-                        </div>
-                    </div>
+                <!-- Tramite refactoring, creo un nuovo componente Post e trasmetto le informazioni tramite le props -->
+                <div class="col-4 text-center" v-for="post in posts" :key="post.id">
+                    <Post
+                        :title='post.title'
+                        :img='post.img'
+                        :content="post.content"
+                        :slug="post.slug"
+                        :category="post.category"
+                        :tags="post.tags"
+                        :category_id="post.category_id"
+                    />
                 </div>
 
             </div>
@@ -42,13 +40,17 @@
 </template>
 
 <script>
+import Post from '../components/Post.vue';
+
 export default {
     name: 'BlogMain',
+    components: {
+        Post
+    },
 
     data() {
         return {
             posts: [],
-            categories: [],
             currentPage: 1,
             lastPage: null
         }
@@ -56,7 +58,7 @@ export default {
 
     methods: {
         getPosts(apiPage) {
-            axios.get('/api/posts', {
+            axios.get('/api/posts', { //i params servono a costruire localhost:8000/api/posts?page=numeroPagina
                 'params': {
                     'page': apiPage
                 }
@@ -65,7 +67,6 @@ export default {
                 this.currentPage = response.data.results.current_page;
                 this.posts = response.data.results.data;
                 this.lastPage = response.data.results.last_page;
-                this.categories = response.data.categoryList;
             });
         }
     },

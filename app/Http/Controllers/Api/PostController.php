@@ -39,6 +39,7 @@ class PostController extends Controller
     //La funzione show raccoglie la rotta di un singolo post da routes/api.php renderizzando lo slug, al posto dell'id
     public function show($slug) {
         //Con questa sintassi richiedo al database il primo post dove lo slug sia uguale alla variabile arrivata alla funzione show
+        //dalla rotta definita in api.php
         $post = Post::where('slug', '=', $slug)->with(['category', 'tags'])->first();
 
         if ($post) {

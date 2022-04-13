@@ -7,6 +7,7 @@
 
                 <h1>Visualizzazione del post</h1>
 
+                <img src="{{$post->img}}">
                 <div>Titolo: {{$post->title}}</div>
                 <div>Contenuto: {{$post->content}}</div>
                 <div>Slug: {{$post->slug}}</div>

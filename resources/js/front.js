@@ -16,6 +16,7 @@ const app = new Vue({
     el: '#root',
     render: h => h(App),
 
+    //Da aggiungere per utilizzare Vue Router
     router 
 
 })

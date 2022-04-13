@@ -8,39 +8,10 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+          <li class="nav-item active" v-for="menuItem in menuItems" :key="menuItem.routeName">
             <!-- Un componente specifico di Vue Router richiama la sua logica interna che evita di fare la chiamata verso
             il server ad ogni click del link e quindi di ricaricare la pagina-->
-            <router-link class="nav-link" :to="{name: 'home'}">Home</router-link>
-            <!-- <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'about'}">Chi Siamo</router-link>
-            <!-- <a class="nav-link" href="#">Chi Siamo</a> -->
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'contact'}">Contatti</router-link>
-            <!-- <a class="nav-link" href="#">Contatti</a> -->
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'posts'}">Post</router-link>
-            <!-- <a class="nav-link" href="#">Contatti</a> -->
-          </li>
-
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
+            <router-link class="nav-link" :to="{name: menuItem.routeName}">{{menuItem.label}}</router-link>
           </li>
         </ul>
 
@@ -57,7 +28,29 @@
 
 <script>
 export default {
-    name: 'Header'
+    name: 'Header',
+    data() {
+        return {
+            menuItems: [
+                {
+                    routeName: 'home',
+                    label: 'Home'
+                },
+                {
+                    routeName: 'about',
+                    label: 'Chi Siamo'
+                },
+                {
+                    routeName: 'contact',
+                    label: 'Contatti'
+                },
+                {
+                    routeName: 'blog',
+                    label: 'Blog'
+                },
+            ]
+        }
+    }
 }
 </script>
 
