@@ -64,7 +64,7 @@ class PostController extends Controller
             'category_id' => 'nullable|exists:categories,id',
             'tags' => 'nullable|exists:tags,id',
             //Validazione specifica per l'upload dell'immagine, con funzione specifica image e il max della dimensione in KB
-            'image' => 'nullable|image|max:2048'
+            'image' => 'nullable|mimes:jpg,jpeg,png,bmp,tiff|max:2048'
             ]
         );
 
@@ -151,7 +151,7 @@ class PostController extends Controller
                 'content' => 'required|min:20',
                 'category_id' => 'nullable|exists:categories,id',
                 'tags' => 'nullable|exists:tags,id',
-                'image' => 'nullable|image|max:2048'
+                'image' => 'nullable|mimes:jpg,jpeg,png,bmp,tiff|max:2048'
             ]
         );
 

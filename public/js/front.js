@@ -3917,6 +3917,7 @@ var render = function () {
                   ]),
                   _vm._v(" "),
                   _c("img", {
+                    staticClass: "img-fluid",
                     attrs: { src: _vm.post.cover, alt: _vm.post.title },
                   }),
                   _vm._v(" "),
