@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">{{title}}</h5>
-            <img :src="img">
+            <img :src="cover" class="img-thumbnail" :alt="title">
             <div class="my-3" v-for="category in categories" :key="category.id">
                 <span v-if="category.id == category_id">
                     Genere: <strong>{{category.name}}</strong>
@@ -22,7 +22,7 @@
 <script>
 export default {
     name: 'Post',
-    props: ['title', 'content', 'slug', 'category', 'tags', 'img', 'category_id', 'categories'],
+    props: ['title', 'content', 'slug', 'category', 'tags', 'cover', 'category_id', 'categories'],
     data() {
         return {
 

@@ -8,10 +8,18 @@
                 <h1>Crea un nuovo post</h1>
 
                 {{-- Il form con metodo POST punta alla rotta store --}}
-                <form method="POST" action={{route('admin.posts.store')}}>
+                {{-- Il campo ENCTYPE serve per l'upload dei file. Senza, l'upload non avviene --}}
+                <form method="POST" action={{route('admin.posts.store')}} enctype="multipart/form-data">
 
                     {{-- Controllo --}}
                     @csrf
+
+                    <div class="form-group">
+                        <label for="image">Carica una cover</label>
+                        {{-- Il name dell'input può contenere un qualunque nome, perché non ha diretta
+                        corrispondenza con il path del database --}}
+                        <input class="form-control" type="file" name="image" id="image">
+                    </div>
 
                     <div class="form-group">
                         <label for="category_id">Categoria</label>

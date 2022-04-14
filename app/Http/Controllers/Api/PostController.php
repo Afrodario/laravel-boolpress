@@ -17,14 +17,23 @@ class PostController extends Controller
     public function index()
     {
 
-        //La funzione with con parametro category (cioè il nome della funzione che definisce la relazione)
+        //La funzione with con parametro category (cioè il nome della funzione che definisce la relazione nei singoli model)
         //risolve la relazione tra tabelle specificata
         //e restituisce le informazioni relative alla categoria
         $posts = Post::with(['category', 'tags'])->get();
+
         $categories = Category::all();
 
         //Metodo di laravel di paginazione automatica, invia i dati al front, raccolti poi con una chiamata axios
-        $posts = Post::paginate(3);
+        $posts = Post::paginate(6);
+
+        $posts->each(function($post) {
+            if ($post->cover) {
+                $post->cover = url('storage/'.$post->cover);
+            } else {
+                $post->cover = url('img/phonograph-record.jpg');
+            }
+        });
 
         //Metodo di raccolta dati da tornare alla vista in formato json, response() e json()
         return response()->json(
@@ -38,9 +47,15 @@ class PostController extends Controller
 
     //La funzione show raccoglie la rotta di un singolo post da routes/api.php renderizzando lo slug, al posto dell'id
     public function show($slug) {
-        //Con questa sintassi richiedo al database il primo post dove lo slug sia uguale alla variabile arrivata alla funzione show
+        //Con questa sintassi richiedo al database il primo post (first) dove lo slug sia uguale alla variabile arrivata alla funzione show
         //dalla rotta definita in api.php
         $post = Post::where('slug', '=', $slug)->with(['category', 'tags'])->first();
+
+        if ($post->cover) {
+            $post->cover = url('storage/'.$post->cover);
+        } else {
+            $post->cover = url('img/phonograph-record.jpg');
+        }
 
         if ($post) {
             return response()->json(

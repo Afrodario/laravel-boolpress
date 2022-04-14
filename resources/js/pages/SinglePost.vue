@@ -10,7 +10,7 @@
           <div class="card">
             <div class="card-body" v-if="post">
               <h1 class="card-title">{{post.title}}</h1>
-              <img :src="post.img">
+              <img :src="post.cover" :alt="post.title">
               <h3 v-if="post.category">Categoria: {{post.category.name}}</h3>
               <p>{{post.content}}</p>
               <span>Tags:</span>

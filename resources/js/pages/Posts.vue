@@ -11,7 +11,7 @@
                 <div class="col-4 text-center" v-for="post in posts" :key="post.id">
                     <Post
                         :title='post.title'
-                        :img='post.img'
+                        :cover='post.cover'
                         :content="post.content"
                         :slug="post.slug"
                         :category="post.category"
@@ -44,7 +44,7 @@
 import Post from '../components/Post.vue';
 
 export default {
-    name: 'BlogMain',
+    name: 'Posts',
     components: {
         Post
     },

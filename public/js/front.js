@@ -2032,7 +2032,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Post',
-  props: ['title', 'content', 'slug', 'category', 'tags', 'img', 'category_id', 'categories'],
+  props: ['title', 'content', 'slug', 'category', 'tags', 'cover', 'category_id', 'categories'],
   data: function data() {
     return {};
   }
@@ -2178,7 +2178,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'BlogMain',
+  name: 'Posts',
   components: {
     Post: _components_Post_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -3612,7 +3612,10 @@ var render = function () {
       [
         _c("h5", { staticClass: "card-title" }, [_vm._v(_vm._s(_vm.title))]),
         _vm._v(" "),
-        _c("img", { attrs: { src: _vm.img } }),
+        _c("img", {
+          staticClass: "img-thumbnail",
+          attrs: { src: _vm.cover, alt: _vm.title },
+        }),
         _vm._v(" "),
         _vm._l(_vm.categories, function (category) {
           return _c("div", { key: category.id, staticClass: "my-3" }, [
@@ -3801,7 +3804,7 @@ var render = function () {
               _c("Post", {
                 attrs: {
                   title: post.title,
-                  img: post.img,
+                  cover: post.cover,
                   content: post.content,
                   slug: post.slug,
                   category: post.category,
@@ -3913,7 +3916,9 @@ var render = function () {
                     _vm._v(_vm._s(_vm.post.title)),
                   ]),
                   _vm._v(" "),
-                  _c("img", { attrs: { src: _vm.post.img } }),
+                  _c("img", {
+                    attrs: { src: _vm.post.cover, alt: _vm.post.title },
+                  }),
                   _vm._v(" "),
                   _vm.post.category
                     ? _c("h3", [

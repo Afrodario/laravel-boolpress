@@ -10,7 +10,8 @@ use App\Tag;
 //Importazione di Carbon
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
+//Importazione di Storage
+use Illuminate\Support\Facades\Storage;
 //Importazione STR
 use Illuminate\Support\Str;
 
@@ -61,11 +62,20 @@ class PostController extends Controller
             'title' => 'required|min:5',
             'content' => 'required|min:20',
             'category_id' => 'nullable|exists:categories,id',
-            'tags' => 'nullable|exists:tags,id'
+            'tags' => 'nullable|exists:tags,id',
+            //Validazione specifica per l'upload dell'immagine, con funzione specifica image e il max della dimensione in KB
+            'image' => 'nullable|image|max:2048'
             ]
         );
 
         $data = $request->all();
+
+        if (isset($data['image'])) {
+            //Richiamo Storage per il salvataggio del file caricato, indicando la cartella di destinazione
+            //e da dove prendere il dato, cioè da $data di image, il nome che ho dato nel form in create
+            $cover_path = Storage::put('post_covers', $data['image']);
+            $data['cover'] = $cover_path;
+        }
 
         //Calcolo lo slug (campo unico) a partire dal titolo in modo che ogni articolo
         //abbia un riferimento univoco
@@ -140,11 +150,24 @@ class PostController extends Controller
                 'title' => 'required|min:5',
                 'content' => 'required|min:20',
                 'category_id' => 'nullable|exists:categories,id',
-                'tags' => 'nullable|exists:tags,id'
+                'tags' => 'nullable|exists:tags,id',
+                'image' => 'nullable|image|max:2048'
             ]
         );
 
         $data = $request->all();
+
+        if (isset($data['image'])) {
+
+            if ($post->cover) {
+                Storage::delete($post->cover);
+            }
+            
+            //Richiamo Storage per il salvataggio del file caricato, indicando la cartella di destinazione
+            //e da dove prendere il dato, cioè da $data di image, il nome che ho dato nel form in create
+            $cover_path = Storage::put('post_covers', $data['image']);
+            $data['cover'] = $cover_path;
+        }
 
         $slug = Str::slug($data['title']);
 
@@ -174,6 +197,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if($post->cover) {
+            Storage::delete($post->cover);
+        }
+
+
         $post->delete();
         return redirect()->route('admin.posts.index');
     }
