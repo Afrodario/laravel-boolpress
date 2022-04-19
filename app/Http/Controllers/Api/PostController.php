@@ -27,6 +27,8 @@ class PostController extends Controller
         //Metodo di laravel di paginazione automatica, invia i dati al front, raccolti poi con una chiamata axios
         $posts = Post::paginate(6);
 
+        //Costruisco per il campo cover una URL assoluta a partire dall'URL relativa salvata nel database,
+        //grazie alla funzione di Laravel url()
         $posts->each(function($post) {
             if ($post->cover) {
                 $post->cover = url('storage/'.$post->cover);

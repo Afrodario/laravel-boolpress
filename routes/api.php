@@ -24,3 +24,6 @@ Route::get('/posts', 'Api\PostController@index');
 
 //Questa rotta rimanda al prefisso slug per la visualizzazione di ogni singolo post
 Route::get('/posts/{slug}', 'Api\PostController@show');
+
+//Definisco la rotta per i contatti
+Route::post('/contacts', 'Api\ContactController@store');
